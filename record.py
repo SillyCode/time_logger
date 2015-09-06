@@ -107,8 +107,9 @@ try:
 				""")
 				_con.commit()
 				date = cursor.fetchone()
-
-				today_hours = float(date['time']/3600.00) # Today's working hours
+				today_hours = 0.0
+				if date:
+					today_hours = float(date['time']/3600.00) # Today's working hours
 				working_hours = float(row['spent']/3600) + today_hours # Working hours until including today
 				print ("Hours spent this month: %.2f" % working_hours)
 				print "Working hours up including current day: " + str(9 * row['days']) + "\n"
