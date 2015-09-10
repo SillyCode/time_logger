@@ -124,14 +124,14 @@ try:
 				if date:
 					today_hours = float(date['time']/3600.00) # Today's working hours
 				working_hours = float(row['spent']/3600) + today_hours # Working hours until including today
-				print ("Hours spent this month: %.2f" % working_hours)
+				print ("Hours spent this month: %d:%d" % (int(working_hours), int((working_hours - int(working_hours) )*60) ))
 				print "Working hours up including current day: " + str(9 * row['days']) + "\n"
 				if working_hours > (9*row['days']):
 					print "\033[92m" # Color stdout output GREEN
-					print ("You are %.2f hours AHEAD" % (working_hours - (9 * row['days'])))
+					print ("You are %02d:%d hours AHEAD" % ((working_hours - (9 * row['days'])), int((working_hours - int(working_hours) )*60)))
 				elif working_hours < (9*row['days']):
 					print "\033[91m" # Color stdout output RED
-					print ("You are %.2f hours BEHIND" % ((9 * row['days']) - working_hours))
+					print ("You are %02d:%d hours BEHIND" % (((9 * row['days']) - working_hours)), int((working_hours - int(working_hours) )*60))
 				else:
 					print ("You are spot on working hours")
 			elif opt in ('-t', '--table'):
