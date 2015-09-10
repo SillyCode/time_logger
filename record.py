@@ -60,7 +60,7 @@ def record(cursor):
 					if weekday is not 5 and weekday is not 6:
 						cursor.execute('insert into `record` (`start_time`) values (%s)', (stamp))
 						_con.commit()
-					else
+					else:
 						print "No work on weekend"
 
 					remove_old_records()
