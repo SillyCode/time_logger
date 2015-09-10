@@ -18,8 +18,7 @@ db_password = ''
 # Change the conf file to execute the global record file
 # TODO
 #- manually insert/update record or remove record by date
-#- prevent record on free days
-#- clean records of more than 3 month long
+#- make method to calculate spend hours after any manual update
 
 def mysql_connect():
 	global _con
