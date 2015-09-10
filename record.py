@@ -55,9 +55,15 @@ def record(cursor):
 					cursor.execute('update `record` set `seconds_spent` = (select UNIX_TIMESTAMP(`end_time`)-UNIX_TIMESTAMP(`start_time`)) where `record_id` = %s', row['record_id']);
 					_con.commit()
 				else:
-					#print 'not match' #insert new record updating the start_time
-					cursor.execute('insert into `record` (`start_time`) values (%s)', (stamp))
-					_con.commit()
+					# Start of workin day - inserting new record
+					weekday = calendar.weekday(now.year,now.month,now.day)
+					if weekday is not 5 and weekday is not 6:
+						cursor.execute('insert into `record` (`start_time`) values (%s)', (stamp))
+						_con.commit()
+					else
+						print "No work on weekend"
+
+					remove_old_records()
 			else: #table has not records
 				print 'clean table'
 				cursor.execute('insert into `record` (`start_time`) values (%s)', (stamp))
