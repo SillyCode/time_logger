@@ -89,6 +89,12 @@ def working_days():
 	print "Working hours required this month: " + str(days * 9) # 9 working hours
 cursor = mysql_connect().cursor(mdb.cursors.DictCursor)
 
+#Check if we have 3 month old records and remove them
+def remove_old_records():
+	now = datetime.date.today().month
+	cursor.execute('delete from `record` where month(`start_time`) = %s', ((now-3) % 12))
+	_con.commit()
+
 try:
 	optlist, args = getopt.getopt(sys.argv[1:], 'lts', ['list', 'log', 'last', 'table'])
 	if not optlist: # no options specified
