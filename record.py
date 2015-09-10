@@ -75,6 +75,7 @@ def record(cursor):
 		if _con:
 			_con.rollback()
 
+# Calculate working days in current month starting from Sat
 def working_days():
 	days = 0
 	now = datetime.date.today()
@@ -103,7 +104,7 @@ try:
 				""")
 				_con.commit()
 				row = cursor.fetchone()
-				working_days() # Calculate working days in a month
+				working_days()
 
 				cursor.execute("""
 						select TIME_TO_SEC(timediff(curtime(), time(`start_time`))) as `time`
