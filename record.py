@@ -56,6 +56,7 @@ def record(cursor):
 					_con.commit()
 				else:
 					# Start of workin day - inserting new record
+					now = datetime.date.today()
 					weekday = calendar.weekday(now.year,now.month,now.day)
 					if weekday is not 5 and weekday is not 6:
 						cursor.execute('insert into `record` (`start_time`) values (%s)', (stamp))
