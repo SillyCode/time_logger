@@ -43,6 +43,7 @@ def install(cursor):
 			`record_id` int unsigned not null auto_increment,
 			`start_time` timestamp DEFAULT '0000-00-00 00:00:00',
 			`end_time` timestamp DEFAULT '0000-00-00 00:00:00',
+			`working_hours` int unsigned not null default 9,
 			`seconds_spent` int(10)
 			primary key(`record_id`))""") # record current time
 		_con.commit()
