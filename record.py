@@ -105,6 +105,7 @@ try:
 			if opt in ('-l', '--log'):
 				cursor.execute("""
 						select count(1) as days,
+						sum(`working_hours`) as total_hours,
 						sum(`seconds_spent`) as spent
 					from `record`
 					where month(`start_time`) = month(curdate())
@@ -126,13 +127,13 @@ try:
 					today_hours = float(date['time']/3600.00) # Today's working hours
 				working_hours = float(row['spent']/3600) + today_hours # Working hours until including today
 				print ("Hours spent this month: %d:%d" % (int(working_hours), int((working_hours - int(working_hours) )*60) ))
-				print "Working hours up including current day: " + str(9 * row['days']) + "\n"
-				if working_hours > (9*row['days']):
+				print "Working hours up including current day: " + str(row['total_hours']) + "\n"
+				if working_hours > (row['total_hours']):
 					print "\033[92m" # Color stdout output GREEN
-					print ("You are %02d:%d hours AHEAD" % ((working_hours - (9 * row['days']), int((working_hours - int(working_hours) )*60))))
-				elif working_hours < (9*row['days']):
+					print ("You are %02d:%d hours AHEAD" % ((working_hours - int(row['total_hours']), int((working_hours - int(working_hours))*60))))
+				elif working_hours < (row['total_hours']):
 					print "\033[91m" # Color stdout output RED
-					print ("You are %02d:%d hours BEHIND" % (((9 * row['days']) - working_hours), int((working_hours - int(working_hours) )*60)))
+					print ("You are %02d:%d hours BEHIND" % ((int(row['total_hours']) - working_hours), int((working_hours - int(working_hours) )*60)))
 				else:
 					print ("You are spot on working hours")
 			elif opt in ('-t', '--table'):
