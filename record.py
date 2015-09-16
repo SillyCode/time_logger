@@ -129,10 +129,10 @@ try:
 				print "Working hours up including current day: " + str(9 * row['days']) + "\n"
 				if working_hours > (9*row['days']):
 					print "\033[92m" # Color stdout output GREEN
-					print ("You are %02d:%d hours AHEAD" % ((working_hours - (9 * row['days'])), int((working_hours - int(working_hours) )*60)))
+					print ("You are %02d:%d hours AHEAD" % ((working_hours - (9 * row['days']), int((working_hours - int(working_hours) )*60))))
 				elif working_hours < (9*row['days']):
 					print "\033[91m" # Color stdout output RED
-					print ("You are %02d:%d hours BEHIND" % (((9 * row['days']) - working_hours)), int((working_hours - int(working_hours) )*60))
+					print ("You are %02d:%d hours BEHIND" % (((9 * row['days']) - working_hours), int((working_hours - int(working_hours) )*60)))
 				else:
 					print ("You are spot on working hours")
 			elif opt in ('-t', '--table'):
